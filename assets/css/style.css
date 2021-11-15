@@ -345,7 +345,7 @@ footer {
     left: -6px;
     border-radius: 12px;
     content: '';
-    background: #fafafa;
+    background-color: #fafafa;
 }
 
 .history-items {

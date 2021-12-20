@@ -1,23 +1,5 @@
 function userInformationHTML(user) {
     return `
-    <h2>${user.name}
-        <span class="small-name>
-            (@<a href="${user.html_url}" target="_blank">${user.login}</a>)
-        </span>
-    </h2>
-    <div class="gh-content">
-        <div class="gh-avatar">
-            <a href="${user.html_url}" target="_blank">
-                <img src="${user.avatar.url}" width="80" height="80" alt="${user.login}" />
-            </a>
-        </div>
-        <p>Followers: ${user.followers} - following ${user.following} <br> Repos: ${user.public_repos}</p>
-    </div>
-    `;
-}
-
-function userInformationHTML(user) {
-    return `
         <h2>${user.name}
             <span class="small-name">
                 (@<a href="${user.html_url}" target="_blank">${user.login}</a>)
@@ -31,7 +13,7 @@ function userInformationHTML(user) {
             </div>
             <p>Followers: ${user.followers} - Following ${user.following} <br> Repos: ${user.public_repos}</p>
         </div>`;
-};
+}
 
 function repoInformationHTML(repos) {
     if (repos.length == 0) {
@@ -52,9 +34,9 @@ function repoInformationHTML(repos) {
                     ${listItemsHTML.join("\n")}
                 </ul>
             </div>`;
-};
+}
 
-function fetchGithubInformation(event) {
+function fetchGitHubInformation(event) {
 
     var username = $("#gh-username").val();
     if (!username) {
@@ -71,13 +53,13 @@ function fetchGithubInformation(event) {
         $.getJSON(`https://api.github.com/users/${username}`),
         $.getJSON(`https://api.github.com/users/${username}/repos`)
     ).then(
-        function (firstResponse, secondResponse) {
+        function(firstResponse, secondResponse) {
             var userData = firstResponse[0];
-            var repoData = secondReponse[0];
+            var repoData = secondResponse[0];
             $("#gh-user-data").html(userInformationHTML(userData));
-            $("#gh-repo-Data").html(repoInformationHTML(repoData));
+            $("#gh-repo-data").html(repoInformationHTML(repoData));
         },
-        function (errorResponse) {
+        function(errorResponse) {
             if (errorResponse.status === 404) {
                 $("#gh-user-data").html(
                     `<h2>No info found for user ${username}</h2>`);
@@ -87,4 +69,4 @@ function fetchGithubInformation(event) {
                     `<h2>Error: ${errorResponse.responseJSON.message}</h2>`);
             }
         });
-};
+}

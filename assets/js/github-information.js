@@ -48,11 +48,13 @@ function fetchGithubInformation(event) {
 
     $.when(
         $.getJSON(`https://api.github.com/users/${username}`)
-        $.getJSON('')
+        $.getJSON(`https://api.github.com/users/${username}/repos`)
     ).then(
-        function (response) {
-            var userData = response;
+        function (firstResponse, secondResponse) {
+            var userData = firstResponse[0];
+            var repoData = secondReponse[0];
             $("#gh-user-data").html(userInformationHTML(userData));
+            $("#gh-repo-Data").html(repoInformationHTML(repoData));
         },
         function (errorResponse) {
             if (errorResponse.status === 404) {

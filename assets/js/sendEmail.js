@@ -13,4 +13,5 @@ function sendMail(contactForm) {
             console.log("Failed...", error);
         }
     );
+    return false;
 }
